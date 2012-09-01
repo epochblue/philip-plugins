@@ -1,0 +1,4 @@
+# misc ignores
+.DS_Store
+*.swp
+
