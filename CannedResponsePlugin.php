@@ -12,6 +12,12 @@ class CannedResponsePlugin
     /** @var \Philip\IRC\Philip */
     protected $bot;
 
+    /** @var array */
+    private $responses = array();
+
+    /** @var array */
+    private $attributes = array('an IRC bot');
+
     /**
      * Constructor
      *
@@ -20,6 +26,28 @@ class CannedResponsePlugin
     public function __construct($bot)
     {
         $this->bot = $bot;
+    }
+
+    /**
+     * Init the plugin and start listening to messages
+     */
+    public function init()
+    {
+        $this->addResponses();
+
+        $config = $this->bot->getConfig();
+
+        // detects someone speaking to the bot
+        $address_re = "/(^{$config['nick']}(.+)|(.+){$config['nick']}[!.?]*)$/i";
+        $this->bot->onChannel($address_re, function($request, $matches) {
+            $message = $matches[1] ? $matches[1] : $matches[2];
+            
+            foreach ($this->responses as $regex => $function) {
+                if (preg_match($regex, $message, $matches)) {                
+                    return Response::msg($request->getSource(), $function($matches));
+                }
+            }
+        });
     }
 
     /**
@@ -62,28 +90,6 @@ class CannedResponsePlugin
     }
 
     /**
-     * Init the plugin and start listening to messages
-     */
-    public function init()
-    {
-        $this->addResponses();
-
-        $config = $this->bot->getConfig();
-
-        // detects someone speaking to the bot
-        $address_re = "/(^{$config['nick']}(.+)|(.+){$config['nick']}[!.?]*)$/i";
-        $this->bot->onChannel($address_re, function($request, $matches) {
-            $message = $matches[1] ? $matches[1] : $matches[2];
-            
-            foreach ($this->responses as $regex => $function) {
-                if (preg_match($regex, $message, $matches)) {                
-                    return Response::msg($request->getSource(), $function($matches));
-                }
-            }
-        });
-    }
-
-    /**
      * Helper method to add responses to the plugin
      *
      * @param string $regex
@@ -93,10 +99,4 @@ class CannedResponsePlugin
     {
         $this->responses[$regex] = $function;
     }
-
-    /** @var array */
-    private $responses = array();
-
-    /** @var array */
-    private $attributes = array('an IRC bot');
 }
