@@ -38,11 +38,12 @@ class CannedResponsePlugin
         $config = $this->bot->getConfig();
 
         // detects someone speaking to the bot
+        $responses = $this->responses;
         $address_re = "/(^{$config['nick']}(.+)|(.+){$config['nick']}[!.?]*)$/i";
-        $this->bot->onChannel($address_re, function($request, $matches) {
+        $this->bot->onChannel($address_re, function($request, $matches) use ($responses) {
             $message = $matches[1] ? $matches[1] : $matches[2];
             
-            foreach ($this->responses as $regex => $function) {
+            foreach ($responses as $regex => $function) {
                 if (preg_match($regex, $message, $matches)) {                
                     return Response::msg($request->getSource(), $function($matches));
                 }
