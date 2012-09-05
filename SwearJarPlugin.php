@@ -32,7 +32,7 @@ class SwearJarPlugin
         $swear_jar = array();
 
         // Don't say bad words, kids.
-        $re = '/' . implode('|', $swears) . '/';
+        $re = '/' . implode('|', $swears) . '/i';
         $this->bot->onChannel($re, function($request, $matches) use (&$swear_jar) {
             $cost = 0.25;
             $who = $request->getSendingUser();
