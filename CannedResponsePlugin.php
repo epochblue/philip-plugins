@@ -85,7 +85,7 @@ class CannedResponsePlugin
      *
      * @param string $attribute
      */
-    private function addAttribute($attribute)
+    public function addAttribute($attribute)
     {
         $this->attributes[] = $attribute;
     }
