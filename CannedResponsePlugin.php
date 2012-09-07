@@ -56,28 +56,39 @@ class CannedResponsePlugin
      */
     private function addResponses()
     {
+        // workaround for $this being unavailable in closures
+        $plugin = $this;
+
         // basic response
         $this->addResponse('/i (love|<3) (you|u)/i', function($matches) { 
             return 'Shutup baby, I know it!'; 
         });
 
         // matches things like "bot: you're the greatest thing ever!" and saves the attribute for later
-        $this->addResponse('/(you are|you\'re) (the |a |an )*([\w ]+)/i', function($matches) {             
-            $this->addAttribute(trim($matches[2] .' '. trim($matches[3])));
+        $this->addResponse('/(you are|you\'re) (the |a |an )*([\w ]+)/i', function($matches) use ($plugin) {             
+            $plugin->addAttribute(trim($matches[2] .' '. trim($matches[3])));
             return "No, *you're* {$matches[2]} ". trim($matches[3]) .'!';
         });
 
         // matches things like "bot is amazing!" and saves the attribute for later
-        $this->addResponse('/is (the |a |an )*([\w ]+)/i', function($matches) { 
-            $this->addAttribute(trim($matches[1] .' '. trim($matches[2])));
+        $this->addResponse('/is (the |a |an )*([\w ]+)/i', function($matches) use ($plugin) { 
+            $plugin->addAttribute(trim($matches[1] .' '. trim($matches[2])));
             return "No, *you're* {$matches[1]} ". trim($matches[2]) .'!';
         });
 
         // responds to things like "who is bot?" with a remembered attribute
-        $this->addResponse('/(what|who) (are you|is)/i', function($matches) {
-            $index = rand(0, count($this->attributes)- 1);
-            return "I'm {$this->attributes[$index]}.";
+        $this->addResponse('/(what|who) (are you|is)/i', function($matches) use ($plugin) {
+            return "I'm ". $plugin->getRandomAttribute();
         });
+    }
+
+    /**
+     * Get a random attribute
+     */
+    public function getRandomAttribute()
+    {
+        $index = rand(0, count($this->attributes) - 1);
+        return $this->attributes[$index];
     }
 
     /**
