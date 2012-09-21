@@ -28,7 +28,7 @@ class SwearJarPlugin
      */
     public function init()
     {
-        $swears = array('fu+ck', 'sh+it', 'cunt', 'cock');
+        $swears = array('fu+ck', '\bsh+it\b', 'cunt', '\bcock\b');
         $swear_jar = array();
 
         // Don't say bad words, kids.
