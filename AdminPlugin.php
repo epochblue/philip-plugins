@@ -77,7 +77,7 @@ class AdminPlugin
          *
          * @author druid628 <druid628@gmail.com>
          */
-        $this->bot->onPrivateMessage("/^!say (#[\w-]*) (.*)/", function($request, $matches) use ($config, $bot) {
+        $this->bot->onPrivateMessage("/^!say ([\#|&][\w-]+) (.+)/", function($request, $matches) use ($config, $bot) {
             $user = $request->getSendingUser();
 
             if ($bot->isAdmin($user)) {
