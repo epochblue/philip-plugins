@@ -71,6 +71,22 @@ class AdminPlugin
                 return Response::msg($user, "You're not the boss of me.");
             }
         });
+ 
+        /**
+         * Say not-so-gracefully 
+         *
+         * @author druid628 <druid628@gmail.com>
+         */
+        $this->bot->onPrivateMessage("/^!say ([\#|&][\w-]+) (.+)/", function($request, $matches) use ($config, $bot) {
+            $user = $request->getSendingUser();
+
+            if ($bot->isAdmin($user)) {
+                return Response::msg($matches[0], $matches[1]);
+            } else {
+                return Response::msg($user, "You're not the boss of me.");
+            }
+        });
+
 
 
         // Quit gracefully
