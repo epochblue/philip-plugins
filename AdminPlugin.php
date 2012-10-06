@@ -52,51 +52,55 @@ class AdminPlugin
         $config = $bot->getConfig();
 
         // Allow the bot to join rooms
-        $this->bot->onPrivateMessage("/^!join(.*)/", function($request, $matches) use ($config, $bot) {
-            $user = $request->getSendingUser();
+        $this->bot->onPrivateMessage("/^!join(.*)/", function($event) use ($config, $bot) {
+            $matches = $event->getMatches();
+            $user = $event->getRequest()->getSendingUser();
             $rooms = explode(' ', $matches[0]);
 
             if ($bot->isAdmin($user)) {
-                return Response::join(implode(',', $rooms));
+                $event->addResponse(Response::join(implode(',', $rooms)));
             } else {
-                return Response::msg($user, "You're not the boss of me.");
+                $event->addResponse(Response::msg($user, "You're not the boss of me."));
             }
         });
         
         // Allow the bot to leave rooms
-        $this->bot->onPrivateMessage("/^!leave(.*)/", function($request, $matches) use ($config, $bot) {
-            $user = $request->getSendingUser();
+        $this->bot->onPrivateMessage("/^!leave(.*)/", function($event) use ($config, $bot) {
+            $matches = $event->getMatches();
+            $user = $event->getRequest()->getSendingUser();
             $rooms = explode(' ', $matches[0]);
 
             if ($bot->isAdmin($user)) {
-                return Response::leave(implode(',', $rooms));
+                $event->addResponse(Response::leave(implode(',', $rooms)));
             } else {
-                return Response::msg($user, "You're not the boss of me.");
+                $event->addResponse(Response::msg($user, "You're not the boss of me."));
             }
         });
  
         // Echo things into channels
-        $this->bot->onPrivateMessage("/^!say ([#&][^\x07\x2C\s]{0,200}) (.+)/", function($request, $matches) use ($config, $bot) {
-            $user = $request->getSendingUser();
+        $this->bot->onPrivateMessage("/^!say ([#&][^\x07\x2C\s]{0,200}) (.+)/", function($event) use ($config, $bot) {
+            $matches = $event->getMatches();
+            $user = $event->getRequest()->getSendingUser();
 
             if ($bot->isAdmin($user)) {
-                return Response::msg($matches[0], $matches[1]);
+                $event->addResponse(Response::msg($matches[0], $matches[1]));
             } else {
-                return Response::msg($user, "You're not the boss of me.");
+                $event->addResponse(Response::msg($user, "You're not the boss of me."));
             }
         });
 
 
 
         // Quit gracefully
-        $this->bot->onPrivateMessage("/^!quit(.*)/", function($request, $matches) use ($config, $bot) {
-            $user = $request->getSendingUser();
+        $this->bot->onPrivateMessage("/^!quit(.*)/", function($event) use ($config, $bot) {
+            $matches = $event->getMatches();
+            $user = $event->getRequest()->getSendingUser();
             $msg = $matches[0] ? trim($matches[0]) : 'Later, kids.';
 
             if ($bot->isAdmin($user)) {
-                return Response::quit($msg);
+                $event->addResponse(Response::quit($msg));
             } else {
-                return Response::msg($user, "You're not the boss of me.");
+                $event->addResponse(Response::msg($user, "You're not the boss of me."));
             }
         });
     }

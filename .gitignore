@@ -1,4 +1,5 @@
-# misc ignores
+# Miscellaneous ignores
 .DS_Store
 *.swp
+.idea
 

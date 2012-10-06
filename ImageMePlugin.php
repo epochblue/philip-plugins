@@ -31,17 +31,19 @@ class ImageMePlugin
         $that = $this;
 
         // Get me an image!
-        $this->bot->onChannel('/^!(?:img|image) (.+)$/i', function($request, $matches) use ($that) {
+        $this->bot->onChannel('/^!(?:img|image) (.+)$/i', function($event) use ($that) {
+            $matches = $event->getMatches();
             if ($img = $that->getImage(trim($matches[0]), false)) {
-                return Response::msg($request->getSource(), $img);
+                $event->addResponse(Response::msg($event->getRequest()->getSource(), $img));
             }
         });
 
 
         // Get me a gif!
-        $this->bot->onChannel('/^!gif (.+)$/i', function($request, $matches) use ($that) {
+        $this->bot->onChannel('/^!gif (.+)$/i', function($event) use ($that) {
+            $matches = $event->getMatches();
             if ($img = $that->getImage(trim($matches[0]), true)) {
-                return Response::msg($request->getSource(), $img);
+                $event->addResponse(Response::msg($event->getRequest()->getSource(), $img));
             }
         });
     }

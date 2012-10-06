@@ -28,23 +28,24 @@ class SwearJarPlugin
      */
     public function init()
     {
-        $swears = array('fu+ck', '\bsh+it\b', 'cunt', '\bcock\b');
+        $swears = array('fu+ck', 'sh+i+t', 'cunt', '\bco+ck\b');
         $swear_jar = array();
 
         // Don't say bad words, kids.
         $re = '/' . implode('|', $swears) . '/i';
-        $this->bot->onChannel($re, function($request, $matches) use (&$swear_jar) {
+        $this->bot->onChannel($re, function($event) use (&$swear_jar) {
             $cost = 0.25;
-            $who = $request->getSendingUser();
+            $who = $event->getRequest()->getSendingUser();
             if (!isset($swear_jar[$who])) {
                 $swear_jar[$who] = 0;
             }
 
             $price = ($swear_jar[$who] += $cost);
-            return Response::msg(
-                $request->getSource(),
-                sprintf("Mind your tongue $who! Now you owe \$%.2f to the swear jar.", $price)
-            );
+            $event->addResponse(
+                Response::msg(
+                    $event->getRequest()->getSource(),
+                    sprintf("Mind your tongue $who! Now you owe \$%.2f to the swear jar.", $price)
+            ));
         });
     }
 }
