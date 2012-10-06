@@ -34,6 +34,8 @@ Adds basic administrative functionality to the bot in the form of `!quit`, `!joi
 These commands only work via private message and only if the issuer
 is in the ops array in the bot's configuration.
 
+_The `!say` command was contributed by [Micah Breedlove](http://github.com/druid628)_
+
 
 SwearJar
 --------
@@ -72,3 +74,11 @@ CannedResponse
 
 The bot will sit in a channel and send back canned responses when spoken to.
 
+_This plugin was contributed by [Sean Crystal](http://github.com/spiralout)_
+
+
+### AUTHORS/CONTRIBUTORS
+
+* Bill Israel - [http://github.com/epochblue](http://github.com/epochblue) - [@epochblue](http://twitter.com/epochblue)
+* Sean Crystal - [http://github.com/spiralout](http://github.com/spiralout)
+* Micah Breedlove - [http://github.com/druid628](http://github.com/druid628) - [@druid628](http://twitter.com/druid628)
