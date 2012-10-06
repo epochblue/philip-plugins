@@ -39,6 +39,9 @@ class AdminPlugin
      *      !leave #example-room
      *      !leave #example-room1 #example-room2
      *
+     * !say <channel> <msg> -- Tells the bot to send a message to the given channel
+     * Example usage:
+     *      !say #example-room Look I can talk.
      *  
      * These commands only work via private message and only if the issuer
      * is in the ops array in the bot's configuration.
@@ -60,7 +63,7 @@ class AdminPlugin
             }
         });
         
-        // Allow the bot to join rooms
+        // Allow the bot to leave rooms
         $this->bot->onPrivateMessage("/^!leave(.*)/", function($request, $matches) use ($config, $bot) {
             $user = $request->getSendingUser();
             $rooms = explode(' ', $matches[0]);
@@ -72,12 +75,8 @@ class AdminPlugin
             }
         });
  
-        /**
-         * Say not-so-gracefully 
-         *
-         * @author druid628 <druid628@gmail.com>
-         */
-        $this->bot->onPrivateMessage("/^!say ([\#|&][\w-]+) (.+)/", function($request, $matches) use ($config, $bot) {
+        // Echo things into channels
+        $this->bot->onPrivateMessage("/^!say ([#&][^\x07\x2C\s]{0,200}) (.+)/", function($request, $matches) use ($config, $bot) {
             $user = $request->getSendingUser();
 
             if ($bot->isAdmin($user)) {
