@@ -2,8 +2,8 @@
 
 namespace Epochblue\Philip\Plugin;
 
+use Epochblue\Philip\AbstractPlugin as BasePlugin;
 use Epochblue\Philip\IRC\Response;
-use Epochblue\Philip\IRC\AbstractPlugin as BasePlugin;
 
 /**
  * Adds basic administrative functionality to the Philip IRC bot.
