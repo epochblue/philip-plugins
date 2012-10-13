@@ -1,27 +1,17 @@
 <?php
 
-use Philip\IRC\Response;
+namespace Epochblue\Philip\Plugin;
+
+use Epochblue\Philip\IRC\Response;
+use Epochblue\Philip\IRC\AbstractPlugin as BasePlugin;
 
 /**
  * Adds a "swear jar" to the Philip IRC bot.
  *
  * @author Bill Israel <bill.israel@gmail.com>
  */
-class SwearJarPlugin
+class SwearJarPlugin extends BasePlugin
 {
-    /** @var The injected instance of the bot */ 
-    private $bot;
-
-    /**
-     * Constructor
-     *
-     * @param Philip The IRC bot instance
-     */
-    public function __construct($bot)
-    {
-        $this->bot = $bot;
-    }
-
     /**
      * Listens to channel messages and lets everyone know who owes what to
      * the "swear jar".

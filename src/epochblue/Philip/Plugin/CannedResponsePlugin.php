@@ -1,32 +1,22 @@
 <?php
 
-use Philip\IRC\Response;
+namespace Epochblue\Philip\Plugin;
+
+use Epochblue\Philip\IRC\Response;
+use Epochblue\Philip\IRC\AbstractPlugin as BasePlugin;
 
 /**
  * Adds some canned responses to the Philip IRC bot.
  *
  * @author Sean Crystal <seancrystal@gmail.com>
  */
-class CannedResponsePlugin
+class CannedResponsePlugin extends BasePlugin
 {
-    /** @var \Philip\IRC\Philip */
-    protected $bot;
-
     /** @var array */
     private $responses = array();
 
     /** @var array */
     private $attributes = array('an IRC bot');
-
-    /**
-     * Constructor
-     *
-     * @param \Philip\IRC\Philip $bot
-     */
-    public function __construct($bot)
-    {
-        $this->bot = $bot;
-    }
 
     /**
      * Init the plugin and start listening to messages

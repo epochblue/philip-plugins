@@ -1,27 +1,17 @@
 <?php
 
-use Philip\IRC\Response;
+namespace Epochblue\Philip\Plugin;
+
+use Epochblue\Philip\IRC\Response;
+use Epochblue\Philip\IRC\AbstractPlugin as BasePlugin;
 
 /**
  * Adds basic administrative functionality to the Philip IRC bot.
  *
  * @author Bill Israel <bill.israel@gmail.com>
  */
-class AdminPlugin
+class AdminPlugin extends BasePlugin
 {
-    /** @var Philip $bot The bot to add functionality to */
-    protected $bot;
-
-    /**
-     * Constructur inject the bot.
-     *
-     * @param Philip $bot The Philip IRC bot instance
-     */
-    public function __construct($bot)
-    {
-        $this->bot = $bot;
-    }
-
     /**
      * Adds !quit, !join, and !leave commands to the bot:
      *

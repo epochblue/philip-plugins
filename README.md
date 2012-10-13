@@ -79,6 +79,6 @@ _This plugin was contributed by [Sean Crystal](http://github.com/spiralout)_
 
 ### AUTHORS/CONTRIBUTORS
 
-* Bill Israel - [http://github.com/epochblue](http://github.com/epochblue) - [@epochblue](http://twitter.com/epochblue)
+* Bill Israel - [http://github.com/Epochblue](http://github.com/Epochblue) - [@Epochblue](http://twitter.com/Epochblue)
 * Sean Crystal - [http://github.com/spiralout](http://github.com/spiralout)
 * Micah Breedlove - [http://github.com/druid628](http://github.com/druid628) - [@druid628](http://twitter.com/druid628)

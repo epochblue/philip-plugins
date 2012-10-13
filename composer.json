@@ -1,0 +1,24 @@
+{
+    "name": "epochblue/philip-plugins",
+    "description": "Plugins for the Philip IRC bot",
+    "keywords": ["irc", "bot", "dsl", "plugin", "plugins"],
+    "homepage": "http://github.com/epochblue/philip-plugins",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bill Israel",
+            "email": "bill.israel@gmail.com",
+            "homepage": "http://cubicle17.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "epochblue/philip": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Epochblue\\Philip\\Plugin": "src/"
+        }
+    }
+}

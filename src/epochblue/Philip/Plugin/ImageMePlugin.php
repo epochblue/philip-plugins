@@ -1,27 +1,17 @@
 <?php
 
-use Philip\IRC\Response;
+namespace Epochblue\Philip\Plugin;
+
+use Epochblue\Philip\IRC\Response;
+use Epochblue\Philip\IRC\AbstractPlugin as BasePlugin;
 
 /**
  * Looks up a random image based on a keyword.
  *
  * @author Bill Israel <bill.israel@gmail.com>
  */
-class ImageMePlugin
+class ImageMePlugin extends BasePlugin
 {
-    /** @var \Philip\Philip An instance of the IRC bot */
-    protected $bot;
-
-    /**
-     * Constructor.
-     *
-     * @param \Philip\Philip The injected instance of the IRC bot
-     */
-    public function __construct($bot)
-    {
-        $this->bot = $bot;
-    }
-
     /**
      * Initialize the plugin.
      */
