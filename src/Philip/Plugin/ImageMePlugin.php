@@ -1,9 +1,9 @@
 <?php
 
-namespace Epochblue\Philip\Plugin;
+namespace Philip\Plugin;
 
-use Epochblue\Philip\AbstractPlugin as BasePlugin;
-use Epochblue\Philip\IRC\Response;
+use Philip\AbstractPlugin as BasePlugin;
+use Philip\IRC\Response;
 
 /**
  * Looks up a random image based on a keyword.
