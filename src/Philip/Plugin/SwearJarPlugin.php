@@ -18,7 +18,7 @@ class SwearJarPlugin extends BasePlugin
      */
     public function init()
     {
-        $swears = array('fu+ck', 'sh+i+t', 'cunt', '\bco+ck\b');
+        $swears = array('fu+ck', 'sh+i+t', 'cu+nt', 'co+ck');
         $swear_jar = array();
 
         // Don't say bad words, kids.
