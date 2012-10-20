@@ -3,3 +3,7 @@
 *.swp
 .idea
 
+# Composer ignores
+composer.phar
+composer.lock
+vendor/

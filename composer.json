@@ -14,7 +14,8 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "epochblue/philip": "dev-master"
+        "epochblue/philip": "dev-master",
+        "epochblue/darksky-php": "dev-master"
     },
     "autoload": {
         "psr-0": {
