@@ -77,8 +77,26 @@ The bot will sit in a channel and send back canned responses when spoken to.
 _This plugin was contributed by [Sean Crystal](http://github.com/spiralout)_
 
 
+DarkSky
+-------
+
+Adds the ability to get up-to-the-minute weather information and forecasts from the
+[DarkSky API](https://developer.darkskyapp.com). For now, there's only a single bot
+command available:
+
+1. `!ds <location>`: Gets weather info for the given location.
+
+        Example usage:
+            !ds 37205
+            !ds Nashville, TN
+            !ds 600 Charlotte Ave, Nashville, TN 37219
+
+_Note: This plugin requires a DarkSky API key be added to your bot's configuration
+Add a 'darksky_api_key' array key, whose value is your API key_.
+
+
 ### AUTHORS/CONTRIBUTORS
 
-* Bill Israel - [http://github.com/Epochblue](http://github.com/Epochblue) - [@Epochblue](http://twitter.com/Epochblue)
+* Bill Israel - [http://github.com/epochblue](http://github.com/epochblue) - [@epochblue](http://twitter.com/Epochblue)
 * Sean Crystal - [http://github.com/spiralout](http://github.com/spiralout)
 * Micah Breedlove - [http://github.com/druid628](http://github.com/druid628) - [@druid628](http://twitter.com/druid628)
