@@ -9,7 +9,7 @@
         {
             "name": "Bill Israel",
             "email": "bill.israel@gmail.com",
-            "homepage": "http://cubicle17.com/"
+            "homepage": "http://billisrael.info/"
         }
     ],
     "require": {
@@ -20,6 +20,11 @@
     "autoload": {
         "psr-0": {
             "Philip\\Plugin": "src/"
+        }
+    }
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
         }
     }
 }
