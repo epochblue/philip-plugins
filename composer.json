@@ -2,7 +2,7 @@
     "name": "epochblue/philip-plugins",
     "description": "Plugins for the Philip IRC bot",
     "keywords": ["irc", "bot", "dsl", "plugin", "plugins"],
-    "homepage": "http://github.com/epochblue/philip-plugins",
+    "homepage": "https://github.com/epochblue/philip-plugins",
     "type": "library",
     "license": "MIT",
     "authors": [
