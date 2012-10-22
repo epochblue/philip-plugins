@@ -12,6 +12,11 @@ use Philip\IRC\Response;
  */
 class DarkSkyPlugin extends BasePlugin
 {
+
+    /** @var \DarkSky $darksky An instance of the DarkSky API wrapper */
+    private $darksky;
+
+
     /**
      * Uses the DarkSky API to retrieve weather data
      */
@@ -23,41 +28,112 @@ class DarkSkyPlugin extends BasePlugin
             throw new \Exception('Unable to locate darksky_api_key in bot configuration.');
         }
 
-        $plugin = $this;    // PHP5.3, you suck.
-        $darkSky = new \DarkSky($config['darksky_api_key']);
+        $this->darksky = new \DarkSky($config['darksky_api_key']);
+        $plugin = $this;    // PHP 5.3, you suck.
 
-        // Weather, bitches.
-        $this->bot->onChannel('/^!ds (.*)/', function ($event) use ($plugin, $darkSky) {
+        // Look at all this weather!
+        $this->bot->onChannel('/^!ds (\w+)(.*)/', function($event) use ($plugin) {
             $matches = $event->getMatches();
-            $where = $matches[0];
+            switch($cmd = $matches[0]) {
+                case 'now':
+                case 'current':
+                    $plugin->getCurrentWeather(trim($matches[1]), $event);
+                    break;
 
-            if (!$found = $plugin->getLatLongForLocation($where)) {
-                $event->addResponse(
-                    Response::msg(
-                        $event->getRequest()->getSource(),
-                        "Oops, sorry. I'm unable to find a lat/long for that location."
-                    )
-                );
+                case 'forecast':
+                case 'at':
+                    $plugin->getPrecipitation(trim($matches[1]), $event);
+                    break;
 
-                return;
+                default:
+                    $plugin->addErrorMsg($event, "Unknown command: $cmd");
+                    break;
             }
+        });
+    }
 
+    /**
+     * Gets the current weather and a simple prediction for the next hour.
+     *
+     * @param string $where The location to lookup
+     * @param \Philip\IRC\Event $event The event to handle
+     *
+     * @return void
+     */
+    public function getCurrentWeather($where, $event)
+    {
+        if (!$found = $this->getLatLongForLocation($where)) {
+            $this->addLatLongError($event);
+            return;
+        }
+
+        try {
             list($lat, $long) = $found;
-            $forecast = $darkSky->getBriefForecast($lat, $long);
+            $forecast = $this->darksky->getBriefForecast($lat, $long);
 
             $event->addResponse(
                 Response::msg(
                     $event->getRequest()->getSource(),
-                    sprintf(
-                        '[Weather for %s] Currently: %s-degrees and %s. For the next hour: %s',
+                    sprintf('[Weather for %s] Currently: %s, %s degrees. For the next hour: %s',
                         $where,
-                        $forecast['currentTemp'],
                         $forecast['currentSummary'],
+                        $forecast['currentTemp'],
                         $forecast['hourSummary']
                     )
                 )
             );
-        });
+        } catch (\Exception $ex) {
+            $this->addErrorMsg($event, "Oops, I'm unable to get the weather for that location...");
+            return;
+        }
+    }
+
+    /**
+     * Gets the preciptation at a specific place and time.
+     *
+     * @param string $match The remainder of the match (holds location info)
+     * @param \Philip\IRC\Event $event The event to handle.
+     *
+     * @return void
+     */
+    public function getPrecipitation($match, $event)
+    {
+        $location = explode('@', $match);
+        $where = trim($location[0]);
+        $when  = trim($location[1]);
+
+        if (!$found = $this->getLatLongForLocation($where)) {
+            $this->addLatLongError($event);
+            return;
+        }
+
+        try {
+            $time = new \DateTime($when);
+            list($lat, $long) = $found;
+            $precipitation = $this->darksky->getPrecipitation(array(
+                'lat'  => $lat,
+                'long' => $long,
+                'time' => $time->getTimestamp()
+            ));
+
+            $chanceOfRain = $precipitation['precipitation'][0]['probability'] * 100;
+            $intensity = $precipitation['precipitation'][0]['intensity'];
+
+            $event->addResponse(
+                Response::msg(
+                    $event->getRequest()->getSource(),
+                    sprintf('[Weather for %s @ %s] %s (%d%% chance of rain)',
+                        $where,
+                        $time->format('g:ia'),
+                        $this->getEnglishIntensity($intensity),
+                        $chanceOfRain
+                    )
+                )
+            );
+        } catch (\Exception $ex) {
+            $this->addErrorMsg($event, "Oops. I'm unable to get the precipitation for that location at that time...");
+            return;
+        }
     }
 
     /**
@@ -86,5 +162,54 @@ class DarkSkyPlugin extends BasePlugin
         }
 
         return false;
+    }
+
+    /**
+     * Add a lat/long error response to the event
+     *
+     * @param \Philip\IRC\Event $event The event to add a response to
+     *
+     * @return void
+     */
+    public function addLatLongError($event)
+    {
+        $this->addErrorMsg($event, "Oops. I'm unable to find a lat/long for that location...");
+    }
+
+    /**
+     * Add an error message to the response.
+     *
+     * @param \Philip\IRC\Event $event The event to add a response to
+     * @param string $msg The error message to send
+     *
+     * @return void
+     */
+    public function addErrorMsg($event, $msg)
+    {
+        $event->addResponse(Response::msg($event->getRequest()->getSource(), $msg));
+    }
+
+    /**
+     * Converts an intensity value to a string.
+     *
+     * @param float $intensity The intensity value to convert to a string
+     *
+     * @return string
+     */
+    private function getEnglishIntensity($intensity)
+    {
+        $desc = 'no';
+
+        if ($intensity >= 2 && $intensity < 15) {
+            $desc = 'sporadic';
+        } else if ($intensity >= 15 && $intensity < 30) {
+            $desc = 'light';
+        } else if ($intensity >= 30 && $intensity < 45) {
+            $desc = 'moderate';
+        } else if ($intensity > 45) {
+            $desc = 'heavy';
+        }
+
+        return $desc . ' rain';
     }
 }
