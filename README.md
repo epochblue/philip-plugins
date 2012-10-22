@@ -80,19 +80,28 @@ _This plugin was contributed by [Sean Crystal](http://github.com/spiralout)_
 DarkSky
 -------
 
-Adds the ability to get up-to-the-minute weather information and forecasts from the
-[DarkSky API](https://developer.darkskyapp.com). For now, there's only a single bot
-command available:
+_This plugin requires a DarkSky API key be added to your bot's configuration
+Add a 'darksky_api_key' array key, whose value is your API key_.
 
-1. `!ds <location>`: Gets weather info for the given location.
+Adds the ability to get up-to-the-minute weather information and forecasts from the
+[DarkSky API](https://developer.darkskyapp.com). This plugin contains only a single
+bot command, but has multiple subcommands:
+
+1. `!ds [current|now] <location>`: Gets weather info for the given location.
 
         Example usage:
-            !ds 37205
-            !ds Nashville, TN
-            !ds 600 Charlotte Ave, Nashville, TN 37219
+            !ds now 37205
+            !ds now Nashville, TN
+            !ds current 600 Charlotte Ave, Nashville, TN 37219
 
-_Note: This plugin requires a DarkSky API key be added to your bot's configuration
-Add a 'darksky_api_key' array key, whose value is your API key_.
+2. `!ds [forecast|at] <location> @ <time>`: Get the forecast for the location at a
+specific time.
+
+        Example usage:
+            !ds forecast 37214 @ +10 minutes
+            !ds at 37214 @ -5 minutes
+
+`Note: <time> must be between -8 hours and +1 hour from the current moment.`
 
 
 ### AUTHORS/CONTRIBUTORS
