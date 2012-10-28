@@ -7,3 +7,6 @@
 composer.phar
 composer.lock
 vendor/
+
+# Test files
+test-bot.*
