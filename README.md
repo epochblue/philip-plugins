@@ -81,7 +81,15 @@ DarkSky
 -------
 
 _This plugin requires a DarkSky API key be added to your bot's configuration
-Add a 'darksky_api_key' array key, whose value is your API key_.
+Add it like this:
+
+```php
+    $config = array(
+        // ...
+        'DarkSkyPlugin' => array(
+            'api_key' => '<your API key here>'
+        )
+```
 
 Adds the ability to get up-to-the-minute weather information and forecasts from the
 [DarkSky API](https://developer.darkskyapp.com). This plugin contains only a single
