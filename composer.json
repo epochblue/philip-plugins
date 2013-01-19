@@ -12,12 +12,13 @@
             "homepage": "http://billisrael.info/"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
         "epochblue/darksky-php": "1.0.x"
     },
     "require-dev": {
-        "epochblue/philip": "1.0.x"
+        "epochblue/philip": "dev-master"
     },
     "autoload": {
         "psr-0": {

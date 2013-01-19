@@ -22,13 +22,13 @@ class DarkSkyPlugin extends BasePlugin
      */
     public function init()
     {
-        $config = $this->bot->getConfig();
+        $config = $this->getConfig();
 
-        if (!isset($config['darksky_api_key'])) {
+        if (!isset($config['api_key'])) {
             throw new \Exception('Unable to locate darksky_api_key in bot configuration.');
         }
 
-        $this->darksky = new \DarkSky($config['darksky_api_key']);
+        $this->darksky = new \DarkSky($config['api_key']);
         $plugin = $this;    // PHP 5.3, you suck.
 
         // Look at all this weather!
@@ -89,7 +89,7 @@ class DarkSkyPlugin extends BasePlugin
     }
 
     /**
-     * Gets the preciptation at a specific place and time.
+     * Gets the precipitation at a specific place and time.
      *
      * @param string $match The remainder of the match (holds location info)
      * @param \Philip\IRC\Event $event The event to handle.
@@ -211,5 +211,24 @@ class DarkSkyPlugin extends BasePlugin
         }
 
         return $desc . ' rain';
+    }
+
+    /**
+     * Help messages!
+     */
+    public function displayHelp()
+    {
+        return array(
+            "!ds now|current <location> - retrieves the current conditions for the given location",
+            "!ds forecast|at <location> @ <time> - retrieves the forecast for the location at the given time"
+        );
+    }
+
+    /**
+     * @see \Philip\AbstractPlugin#getName()
+     */
+    public function getName()
+    {
+        return 'DarkSkyPlugin';
     }
 }

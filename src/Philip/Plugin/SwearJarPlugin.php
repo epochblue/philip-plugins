@@ -38,5 +38,13 @@ class SwearJarPlugin extends BasePlugin
             ));
         });
     }
+
+    /**
+     * @see \Philip\AbstractPlugin#getName()
+     */
+    public function getName()
+    {
+        return 'SwearJarPlugin';
+    }
 }
 

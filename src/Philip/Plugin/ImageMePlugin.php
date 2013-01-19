@@ -64,4 +64,23 @@ class ImageMePlugin extends BasePlugin
             return $result['unescapedUrl'];
         }
     }
+
+    /**
+     * Help messages!
+     */
+    public function displayHelp()
+    {
+        return array(
+          '!img <keyword> - find a random images that matches the keyword',
+          '!gif <keyword> - find a random GIF that matches the keyword',
+        );
+    }
+
+    /**
+     * @see \Philip\AbstractPlugin#getName()
+     */
+    public function getName()
+    {
+        return 'ImageMePlugin';
+    }
 }

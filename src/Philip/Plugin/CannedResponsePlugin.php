@@ -104,4 +104,12 @@ class CannedResponsePlugin extends BasePlugin
     {
         $this->responses[$regex] = $function;
     }
+
+    /**
+     * @see \Philip\AbstractPlugin#getName()
+     */
+    public function getName()
+    {
+        return 'CannedResponsePlugin';
+    }
 }

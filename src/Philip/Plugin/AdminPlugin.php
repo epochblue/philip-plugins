@@ -94,4 +94,25 @@ class AdminPlugin extends BasePlugin
             }
         });
     }
+
+    /**
+     * Help messages!
+     */
+    public function displayHelp()
+    {
+        return array(
+            "!join <rooms> - join the specified rooms (admin req'd)",
+            "!leave <rooms> - leave the specified rooms (admin req'd)",
+            "!say <room> <msg> - say the message to the specified room (admin req'd)",
+            "!quit <room> - quit the specified room (admin req'd)"
+        );
+    }
+
+    /**
+     * @see \Philip\AbstractPlugin#getName()
+     */
+    public function getName()
+    {
+        return 'AdminPlugin';
+    }
 }
