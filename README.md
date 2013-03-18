@@ -112,6 +112,21 @@ specific time.
 `Note: <time> must be between -8 hours and +1 hour from the current moment.`
 
 
+AnsweringMachine
+----------------
+
+Adds an "answering machine" to a bot, allowing users to leave messages for people who aren't currently in the room.
+The messages will be delivered when the recipient re-joins the room.
+
+1. `!msg <recipient> <message>`: Saves a message for the intended recipient.
+
+        Example usage:
+            !msg irc-buddy Call me when you get this.
+
+By default, messages are relayed in public; however, messages delivered privately to the bot, will be relayed
+privately to the recipient when the user re-joins.
+
+
 ### AUTHORS/CONTRIBUTORS
 
 * Bill Israel - [http://github.com/epochblue](http://github.com/epochblue) - [@epochblue](http://twitter.com/Epochblue)
