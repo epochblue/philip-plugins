@@ -13,12 +13,6 @@ use Philip\IRC\Event;
  */
 class AnsweringMachinePlugin extends BasePlugin
 {
-    /** @var array $messages The messages to deliver to users */
-    private $public = array();
-
-    /** @var array $messages The messages to deliver to users */
-    private $private = array();
-
     /**
      * This plugin is made of two parts: the command to save messages, and the listener to deliver messages.
      *
@@ -31,10 +25,12 @@ class AnsweringMachinePlugin extends BasePlugin
     public function init()
     {
         $bot = $this->bot;
-        $that = $this;
 
-        $private =& $this->private;
-        $public =& $this->public;
+        /** The messages to deliver publicly to users */
+        $public = array();
+
+        /** The messages to deliver privately to users */
+        $private = array();
 
         // Saves messages
         $this->bot->onMessages('/^!msg\s(\S+)\s(.*)/', function(Event $event) use ($bot, &$private, &$public) {
