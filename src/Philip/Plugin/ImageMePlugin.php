@@ -68,7 +68,7 @@ class ImageMePlugin extends BasePlugin
     /**
      * Help messages!
      */
-    public function displayHelp()
+    public function displayHelp(Event $event)
     {
         return array(
           '!img <keyword> - find a random images that matches the keyword',

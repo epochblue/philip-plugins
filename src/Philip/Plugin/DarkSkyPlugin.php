@@ -216,7 +216,7 @@ class DarkSkyPlugin extends BasePlugin
     /**
      * Help messages!
      */
-    public function displayHelp()
+    public function displayHelp(Event $event)
     {
         return array(
             "!ds now|current <location> - retrieves the current conditions for the given location",

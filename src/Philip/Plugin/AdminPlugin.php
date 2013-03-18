@@ -98,7 +98,7 @@ class AdminPlugin extends BasePlugin
     /**
      * Help messages!
      */
-    public function displayHelp()
+    public function displayHelp(Event $event)
     {
         return array(
             "!join <rooms> - join the specified rooms (admin req'd)",
