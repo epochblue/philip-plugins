@@ -129,6 +129,6 @@ privately to the recipient when the user re-joins.
 
 ### AUTHORS/CONTRIBUTORS
 
-* Bill Israel - [http://github.com/epochblue](http://github.com/epochblue) - [@epochblue](http://twitter.com/Epochblue)
+* Bill Israel - [http://github.com/epochblue](http://github.com/epochblue) - [@epochblue](http://twitter.com/epochblue)
 * Sean Crystal - [http://github.com/spiralout](http://github.com/spiralout)
 * Micah Breedlove - [http://github.com/druid628](http://github.com/druid628) - [@druid628](http://twitter.com/druid628)
