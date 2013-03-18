@@ -4,6 +4,7 @@ namespace Philip\Plugin;
 
 use Philip\AbstractPlugin as BasePlugin;
 use Philip\IRC\Response;
+use Philip\IRC\Event;
 
 /**
  * Adds basic administrative functionality to the Philip IRC bot.
@@ -42,7 +43,7 @@ class AdminPlugin extends BasePlugin
         $config = $bot->getConfig();
 
         // Allow the bot to join rooms
-        $this->bot->onPrivateMessage("/^!join(.*)/", function($event) use ($config, $bot) {
+        $this->bot->onPrivateMessage("/^!join(.*)/", function(Event $event) use ($config, $bot) {
             $matches = $event->getMatches();
             $user = $event->getRequest()->getSendingUser();
             $rooms = explode(' ', $matches[0]);
@@ -55,7 +56,7 @@ class AdminPlugin extends BasePlugin
         });
         
         // Allow the bot to leave rooms
-        $this->bot->onPrivateMessage("/^!leave(.*)/", function($event) use ($config, $bot) {
+        $this->bot->onPrivateMessage("/^!leave(.*)/", function(Event $event) use ($config, $bot) {
             $matches = $event->getMatches();
             $user = $event->getRequest()->getSendingUser();
             $rooms = explode(' ', $matches[0]);
@@ -68,7 +69,7 @@ class AdminPlugin extends BasePlugin
         });
  
         // Echo things into channels
-        $this->bot->onPrivateMessage("/^!say ([#&][^\x07\x2C\s]{0,200}) (.+)/", function($event) use ($config, $bot) {
+        $this->bot->onPrivateMessage("/^!say ([#&][^\x07\x2C\s]{0,200}) (.+)/", function(Event $event) use ($config, $bot) {
             $matches = $event->getMatches();
             $user = $event->getRequest()->getSendingUser();
 
@@ -82,7 +83,7 @@ class AdminPlugin extends BasePlugin
 
 
         // Quit gracefully
-        $this->bot->onPrivateMessage("/^!quit(.*)/", function($event) use ($config, $bot) {
+        $this->bot->onPrivateMessage("/^!quit(.*)/", function(Event $event) use ($config, $bot) {
             $matches = $event->getMatches();
             $user = $event->getRequest()->getSendingUser();
             $msg = $matches[0] ? trim($matches[0]) : 'Later, kids.';

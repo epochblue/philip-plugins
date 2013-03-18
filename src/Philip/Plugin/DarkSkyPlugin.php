@@ -4,6 +4,7 @@ namespace Philip\Plugin;
 
 use Philip\AbstractPlugin as BasePlugin;
 use Philip\IRC\Response;
+use Philip\IRC\Event;
 
 /**
  * Uses the DarkSky API to get up-to-the-minute forecasts.
@@ -32,7 +33,7 @@ class DarkSkyPlugin extends BasePlugin
         $plugin = $this;    // PHP 5.3, you suck.
 
         // Look at all this weather!
-        $this->bot->onChannel('/^!ds (\w+)(.*)/', function($event) use ($plugin) {
+        $this->bot->onChannel('/^!ds (\w+)(.*)/', function(Event $event) use ($plugin) {
             $matches = $event->getMatches();
             switch($cmd = $matches[0]) {
                 case 'now':

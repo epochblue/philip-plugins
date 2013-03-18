@@ -4,6 +4,7 @@ namespace Philip\Plugin;
 
 use Philip\AbstractPlugin as BasePlugin;
 use Philip\IRC\Response;
+use Philip\IRC\Event;
 
 /**
  * Adds a "swear jar" to the Philip IRC bot.
@@ -23,7 +24,7 @@ class SwearJarPlugin extends BasePlugin
 
         // Don't say bad words, kids.
         $re = '/' . implode('|', $swears) . '/i';
-        $this->bot->onChannel($re, function($event) use (&$swear_jar) {
+        $this->bot->onChannel($re, function(Event $event) use (&$swear_jar) {
             $cost = 0.25;
             $who = $event->getRequest()->getSendingUser();
             if (!isset($swear_jar[$who])) {

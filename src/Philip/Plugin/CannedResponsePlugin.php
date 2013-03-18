@@ -4,6 +4,7 @@ namespace Philip\Plugin;
 
 use Philip\AbstractPlugin as BasePlugin;
 use Philip\IRC\Response;
+use Philip\IRC\Event;
 
 /**
  * Adds some canned responses to the Philip IRC bot.
@@ -30,7 +31,7 @@ class CannedResponsePlugin extends BasePlugin
         // detects someone speaking to the bot
         $responses = $this->responses;
         $address_re = "/(^{$config['nick']}(.+)|(.+){$config['nick']}[!.?]*)$/i";
-        $this->bot->onChannel($address_re, function($event) use ($responses) {
+        $this->bot->onChannel($address_re, function(Event $event) use ($responses) {
             $matches = $event->getMatches();
             $message = $matches[1] ? $matches[1] : $matches[2];
             

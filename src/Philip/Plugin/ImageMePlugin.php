@@ -4,6 +4,7 @@ namespace Philip\Plugin;
 
 use Philip\AbstractPlugin as BasePlugin;
 use Philip\IRC\Response;
+use Philip\IRC\Event;
 
 /**
  * Looks up a random image based on a keyword.
@@ -21,7 +22,7 @@ class ImageMePlugin extends BasePlugin
         $that = $this;
 
         // Get me an image!
-        $this->bot->onChannel('/^!(?:img|image) (.+)$/i', function($event) use ($that) {
+        $this->bot->onChannel('/^!(?:img|image) (.+)$/i', function(Event $event) use ($that) {
             $matches = $event->getMatches();
             if ($img = $that->getImage(trim($matches[0]), false)) {
                 $event->addResponse(Response::msg($event->getRequest()->getSource(), $img));
@@ -30,7 +31,7 @@ class ImageMePlugin extends BasePlugin
 
 
         // Get me a gif!
-        $this->bot->onChannel('/^!gif (.+)$/i', function($event) use ($that) {
+        $this->bot->onChannel('/^!gif (.+)$/i', function(Event $event) use ($that) {
             $matches = $event->getMatches();
             if ($img = $that->getImage(trim($matches[0]), true)) {
                 $event->addResponse(Response::msg($event->getRequest()->getSource(), $img));
