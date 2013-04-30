@@ -17,7 +17,7 @@ class BitCoinTicker extends BasePlugin
     {
         $bot = $this->bot;
 
-        $bot->onChannel('/(^!btc)/', function (Event $event) {
+        $bot->onChannel('/^!btc/', function (Event $event) {
             $price = json_decode(
                 file_get_contents("http://data.mtgox.com/api/1/BTCUSD/ticker"),
             true

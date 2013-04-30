@@ -127,8 +127,17 @@ By default, messages are relayed in public; however, messages delivered privatel
 privately to the recipient when the user re-joins.
 
 
+BitCoinTicker
+----------------
+
+Adds ability to get bitcoin stats from the mtgox api. Contains 1 command:
+
+1. `!btc` shows buy, sell, high, and low in USD.
+
+
 ### AUTHORS/CONTRIBUTORS
 
 * Bill Israel - [http://github.com/epochblue](http://github.com/epochblue) - [@epochblue](http://twitter.com/epochblue)
 * Sean Crystal - [http://github.com/spiralout](http://github.com/spiralout)
 * Micah Breedlove - [http://github.com/druid628](http://github.com/druid628) - [@druid628](http://twitter.com/druid628)
+@ Marcus Fulbright - [http://github.com/marcusfulbright](http://github.com/marcusfulbright) - [@marcusfulbright](htp://twitter.com/marcusfulbright)
