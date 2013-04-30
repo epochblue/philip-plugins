@@ -140,4 +140,4 @@ Adds ability to get bitcoin stats from the mtgox api. Contains 1 command:
 * Bill Israel - [http://github.com/epochblue](http://github.com/epochblue) - [@epochblue](http://twitter.com/epochblue)
 * Sean Crystal - [http://github.com/spiralout](http://github.com/spiralout)
 * Micah Breedlove - [http://github.com/druid628](http://github.com/druid628) - [@druid628](http://twitter.com/druid628)
-@ Marcus Fulbright - [http://github.com/marcusfulbright](http://github.com/marcusfulbright) - [@marcusfulbright](htp://twitter.com/marcusfulbright)
+* Marcus Fulbright - [http://github.com/marcusfulbright](http://github.com/marcusfulbright) - [@marcusfulbright](htp://twitter.com/marcusfulbright)
